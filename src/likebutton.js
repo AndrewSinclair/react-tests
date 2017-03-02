@@ -6,11 +6,12 @@ class LikeButton extends Component {
         super(props)
     }
 
-
     render() {
         return  (
             <div>
               <button onClick={this.props.incrementLikes}>+ 1</button>
+
+              <div>{this.props.likesProp}</div>
             </div>
         )
     }

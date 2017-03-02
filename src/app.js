@@ -1,28 +1,27 @@
 import React, {Component} from 'react'
 import reactDom, {render} from 'react-dom'
-import LikeButton from './likebutton'
+import LikeContainer from './likecontainer'
 import LikeCounter from './likecounter'
+import likeApp from './reducers'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
 
 class App extends Component {
     constructor() {
         super()
 
-        this.state = {
-            likes: 0
-        }
+        this.store = createStore(likeApp)
     }
 
-    incrementLikes() {
-        let newLikes = this.state["likes"] + 1
-        this.setState({likes: newLikes})
-    }
 
     render() {
         return  (
-            <div>
-                <LikeButton incrementLikes={this.incrementLikes.bind(this)}/>
-                <LikeCounter likes={this.state.likes}/>
-            </div>
+            <Provider store={this.store}>
+                <div>
+                    <LikeContainer />
+                    <LikeCounter />
+                </div>
+            </Provider>
         )
     }
 }
