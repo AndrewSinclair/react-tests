@@ -1,26 +1,35 @@
+import 'babel-polyfill'
 import React, {Component} from 'react'
 import reactDom, {render} from 'react-dom'
 import LikeContainer from './likecontainer'
-import LikeCounter from './likecounter'
+import LoginContainer from './logincontainer'
 import likeApp from './reducers'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import createLogger from 'redux-logger'
+
+const loggerMiddleware = createLogger()
 
 class App extends Component {
     constructor() {
         super()
 
-        this.store = createStore(likeApp)
+        this.store = createStore(likeApp,
+            applyMiddleware(
+                thunkMiddleware,
+                loggerMiddleware
+            )
+        )
     }
-
 
     render() {
         return  (
             <Provider store={this.store}>
-                <div>
-                    <LikeContainer />
-                    <LikeCounter />
-                </div>
+              <div>
+                <LikeContainer />
+                <LoginContainer />
+              </div>
             </Provider>
         )
     }
