@@ -26,7 +26,13 @@ export function fetchLogin(userCreds) {
   return function (dispatch) {
     dispatch(beginLogin())
 
-    return fetch("https://localhost:3000/login", userCreds)
+    const headers = new Headers({ 'Content-Type': 'application/json' })
+
+    return fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers,
+        body: JSON.stringify(userCreds)
+      })
       .then(response =>  {
         if (!response.ok) {
             throw Error(response.statusText)

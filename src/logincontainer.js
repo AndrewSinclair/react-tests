@@ -35,8 +35,8 @@ class LoginWidget extends Component {
             return
           }
           this.props.fetchLogin({
-            user: user.value,
-            pass: password.value
+            username: user.value,
+            password: password.value
           })
         }}>
           <input type="text" ref={node => {
