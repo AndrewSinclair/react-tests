@@ -6,7 +6,7 @@ const mapStateToProps = (state) => {
   //console.log(state);
   return {
     isAuthenticating: state.isAuthenticating,
-    jwt: state.jwt
+    jwt: state.login.jwt
   }
 }
 
@@ -25,9 +25,12 @@ class LoginWidget extends Component {
 
   render() {
     let user, password
+    if (!!this.props.jwt) {
+      return <div>You are logged in!</div>
+    }
     return (
       <div className={
-        this.props.isAuthenticating ? "is-authenticating" : this.props.jwt ? "is-logged-in" : ""
+        this.props.isAuthenticating ? "is-authenticating" : ""
       }>
         <form onSubmit={e => {
           e.preventDefault()
@@ -56,5 +59,10 @@ class LoginWidget extends Component {
   }
 }
 
-const LoginContainer = connect(mapStateToProps, mapDispatchToProps)(LoginWidget)
+const LoginContainer =
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(LoginWidget)
+
 export default LoginContainer

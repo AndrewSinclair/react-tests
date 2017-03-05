@@ -1,8 +1,7 @@
 import 'babel-polyfill'
 import React, {Component} from 'react'
 import reactDom, {render} from 'react-dom'
-import LikeContainer from './likecontainer'
-import LoginContainer from './logincontainer'
+import RouterContainer from './routercontainer'
 import likeApp from './reducers'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
@@ -23,13 +22,19 @@ class App extends Component {
         )
     }
 
+    requireAuth(nextState, replace) {
+      if (!auth.loggedIn()) {
+        replace({
+          pathname: '/login',
+          state: { nextPathname: nextState.location.pathname }
+        })
+      }
+    }
+
     render() {
         return  (
             <Provider store={this.store}>
-              <div>
-                <LikeContainer />
-                <LoginContainer />
-              </div>
+                <RouterContainer />
             </Provider>
         )
     }

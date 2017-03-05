@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
-import { LIKE, LOGIN, SUCCESS_LOGIN, ERROR_LOGIN } from './actions'
+import { LIKE, LOGIN, SUCCESS_LOGIN, ERROR_LOGIN,
+         SUCCESS_FETCH_DATA } from './actions'
 
 function likes(state = {likes: 0}, action) {
   switch (action.type) {
@@ -11,7 +12,7 @@ function likes(state = {likes: 0}, action) {
   }
 }
 
-function login(state = {login: {isAuthenticating: false }}, action) {
+function login(state = {isAuthenticating: false, jwt: null}, action) {
   switch (action.type) {
     case LOGIN:
       return Object.assign({}, state, {
@@ -35,9 +36,22 @@ function login(state = {login: {isAuthenticating: false }}, action) {
   }
 }
 
+function fetchData(state = {body: null}, action) {
+  switch (action.type) {
+    case SUCCESS_FETCH_DATA:
+      return Object.assign({}, state, {
+        data: action.body
+      })
+
+    default:
+      return state
+  }
+}
+
 const likeApp = combineReducers({
   likes,
-  login
+  login,
+  fetchData
 })
 
 export default likeApp

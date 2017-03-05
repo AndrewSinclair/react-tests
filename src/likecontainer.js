@@ -4,7 +4,7 @@ import LikeButton from './likebutton'
 
 const mapStateToProps = (state) => {
   //console.log(state);
-  return {likesProp: state.likes.likes} //why is this need two de-references?
+  return {likesProp: state.likes.likes}
 }
 
 const mapDispatchToProps = (dispatch) => {
